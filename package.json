@@ -1,0 +1,41 @@
+{
+  "name": "altran_web_api",
+  "version": "1.0.0",
+  "description": "web api",
+  "main": "server/server.js",
+  "engines": {
+    "node": ">=6.2.0"
+  },
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "docker": "NODE_ENV=docker npm start",
+    "production": "NODE_ENV=production npm start",
+    "test": "NODE_ENV=test mocha --timeout 15000 --require @babel/register server/tests/*.js --exit"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.15.3",
+    "express-session": "^1.16.2",
+    "express-validator": "^5.3.1",
+    "helmet": "^3.18.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.11",
+    "mongoose": "^5.6.4",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.5.0",
+    "chai-http": "^4.3.0",
+    "@babel/preset-env": "^7.5.2",
+    "@babel/register": "^7.4.4",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.19.1"
+  }
+}
