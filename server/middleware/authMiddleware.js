@@ -13,7 +13,8 @@ exports.auth = function(filter = null) {
             if (err) return res.status(401).send({ status: false, message: 'Failed to authenticate token.' });
             User.findById(decoded.id, function(err, user){
                 if (err) return res.internalError('failed');
-                if (filter && filter.hasOwnProperty('admin') && filter.admin && user.role !== "admin"){
+                else if (!user) return res.unauthorized(Msg.user.USER_NOT_AUTHORIZED)
+                else if (filter && filter.hasOwnProperty('admin') && filter.admin && user.hasOwnProperty('role') && user.role !== "admin"){
                     return res.unauthorized(Msg.user.USER_NOT_AUTHORIZED);
                 }
                 req.user = user;

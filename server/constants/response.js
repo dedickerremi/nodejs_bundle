@@ -10,7 +10,12 @@ const userMsg = {
     USER_NOT_AUTHORIZED: 'user_not_authorized'
 };
 
+const server = {
+    INTERNAL_ERROR : "An error occured"
+}
+
 module.exports = {
     status: statusMsg,
-    user: userMsg
+    user: userMsg,
+    server: server
 }
