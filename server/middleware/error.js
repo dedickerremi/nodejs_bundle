@@ -1,4 +1,4 @@
-var Msg = require('../constants/msgError')
+var Msg = require('../constants/response')
 
 module.exports = function(req, res, next) {
 
