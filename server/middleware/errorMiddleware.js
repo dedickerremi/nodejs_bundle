@@ -1,13 +1,13 @@
-var Msg = require('../constants/msgError')
+var Msg = require('../constants/response')
 
 module.exports = function(req, res, next) {
 
-    res._error = function(code, message) { res.status(code).json({ error: message }); };
+    res._error = function(code, message) { res.status(code).json({status: Msg.status.STATUS_KO, data: message}); };
 
     // 2xx Codes
     res.ok = function(message) { res.status(200).json({status: Msg.status.STATUS_OK, data: message})};
     res.ko = function(message) { res.status(200).json({status: Msg.status.STATUS_KO, data: message})};
-    res.created = function(result) { res.status(201).json(result); };
+    res.created = function(result) { res.status(201).json({status: Msg.status.STATUS_KO, data: message})};
 
     // 4xx Error Codes
     res.badRequest = function(message) { res._error(400, message); };
