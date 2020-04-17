@@ -2,38 +2,38 @@ const API = require('.')
 const _ = require('lodash')
 const lodashFilter = require('../utils/lodashFunctions')
 
-const getClientByMail = (email) => {
+const getPoliciesByEmail = (email) => {
     return new Promise((resolve, reject) => {
-        API.fetchClientList()
+        API.fetchPoliciesList()
         .then( data => {
-            const result = lodashFilter.customFilter(data.data["clients"], ['email', email], true)
+            let result = lodashFilter.customFilter(data.data["policies"], ['email', email])
             resolve(result);
         })
         .catch(err => {
-            reject(err);
+            reject(err)
         })
     })
 }
 
-const getClientById = (id) => {
+const getPolicyById = (id) => {
     return new Promise((resolve, reject) => {
-        API.fetchClientList()
+        API.fetchPoliciesList()
         .then( data => {
-            const result = lodashFilter.customFilter(data.data["clients"], ['id', id], true)
-            resolve(result);
+            let result = lodashFilter.customFilter(data.data["policies"], ['id', id])
+            resolve(result)
         })
         .catch(err => {
-            reject(err);
+            reject(err)
         })
     })
 }
 
-const getClients = () => {
+const getPolicies = () => {
     const model = [ "email", "id"]
     return new Promise((resolve, reject) => {
-        API.fetchClientList()
+        API.fetchPoliciesList()
         .then( data => {
-            const result =  lodashFilter.customMap(data.data["clients"], (item) => { return _.pick(item, model) })
+            const result =  lodashFilter.customMap(data.data["policies"], (item) => { return _.pick(item, model) })
             resolve(result);
         })
         .catch(err => {
@@ -43,7 +43,7 @@ const getClients = () => {
 }
 
 module.exports = {
-    getClientByMail : getClientByMail,
-    getClientById : getClientById,
-    getClients: getClients
+    getPoliciesByEmail : getPoliciesByEmail,
+    getPolicyById : getPolicyById,
+    getPolicies: getPolicies
 }
