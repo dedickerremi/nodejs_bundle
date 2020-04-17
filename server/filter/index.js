@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator/check')
 
-filterRequest = () => {
+const filterRequest = () => {
     return function(req, res, next) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

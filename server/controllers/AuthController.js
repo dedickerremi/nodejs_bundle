@@ -5,7 +5,6 @@ const config = require('../config')
 
 const auth = (req, res) => {
     try {
-        console.log(req.body)
         var user = new User(req.body);
         user.save(function(err){
             if (err) return res.internalError(err);
@@ -18,7 +17,6 @@ const auth = (req, res) => {
 
 const login = (req, res) => {
     try {
-        console.log(req.body)
         User.findOne({ email: req.body.email }, (err, user) => {
             user.comparePassword(req.body.password, (error, match) => {
                 if(!match) {

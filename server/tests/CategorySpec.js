@@ -1,9 +1,9 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../server';
+import app from '../../server';
+
 var mongoose = require('mongoose')
-var Msg = require('../config/msgError')
-import Category from '../model/categoryModel'
+var Msg = require('../constants/response')
 var expect = chai.expect;
 // Configure chai
 chai.use(chaiHttp);
@@ -12,7 +12,7 @@ chai.should();
 describe("Category", () => {
 
     before(function(done) {
-        Category.deleteMany({}, done);
+        // Category.deleteMany({}, done);
     });
 
     after(function (done) {
