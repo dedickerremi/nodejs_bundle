@@ -10,7 +10,7 @@ exports.auth = function(filter = null) {
         if (!authHeader) return res.unauthorized('auth_header_required');
         var token = authHeader;
         jwt.verify(token, config.JwtSecret, function(err, decoded) {
-            if (err) return res.status(401).send({ status: false, message: 'Failed to authenticate token.' });
+            if (err) return res.unauthorized('Failed to authenticate token.');
             User.findById(decoded.id, function(err, user){
                 if (err) return res.internalError(Msg.server.INTERNAL_ERROR);
                 else if (!user) return res.unauthorized(Msg.user.USER_NOT_AUTHORIZED)
@@ -40,7 +40,7 @@ exports.updateRole = function() {
         User.findOne({ email: req.body.email }, function (err, user) {
             if (err) return res.internalError(err);
             if(!user) {
-                return res.status(400).send({ message: "The username does not exist" });
+                return res.badRequest("The username does not exist");
             } else if (user.role !==  req.body.role) {
                 user.role = req.body.role;
                 user.save((err) => {

@@ -19,20 +19,19 @@ const login = (req, res) => {
     try {
         User.findOne({ email: req.body.email }, (err, user) => {
             user.comparePassword(req.body.password, (error, match) => {
-                if(!match) {
-                    return res.status(400).send({ message: "The password is invalid" });
-                }
+                    if(!match) {
+                        return res.badRequest({ message: "The password is invalid" });
+                    }
+                });
+                var token = jwt.sign({ id: user._id }, config.JwtSecret, {
+                    expiresIn: 86400 // expires in 24 hours
+                });
+                user.password = null;
+                user._id = null;
+                res.ok({user: user, token: token });
             });
-
-            var token = jwt.sign({ id: user._id }, config.JwtSecret, {
-                expiresIn: 86400 // expires in 24 hours
-            });
-            user.password = null;
-            user._id = null;
-            res.ok({user: user, token: token });
-        });
     } catch (error) {
-        res.status(500).send(error);
+        res.internalError(error);
     }
 }
 
