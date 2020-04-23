@@ -1,8 +1,5 @@
 # test_node
 
-Run with Docker:
-    docker-compose up --build
-
 Run without Docker:
     PreRequisite: Service mongod running
     
@@ -16,12 +13,12 @@ Run without Docker:
 Run Tests:
     npm run test
 
-
 Route:
     /ping (dev only usage)
     /auth
-    /login
-    [REQUIRE LOGGIN TOKEN]
+    /login [ Allow you to have a token ]
+    
+    [REQUIRE LOG IN TOKEN]
     /users/
     /user/id/[id]
     /user/email/[email]
@@ -30,6 +27,8 @@ Route:
     /policies
     /policies/email/[email]
     /policies/id/[id]
+
+The User roles is defined on the fly during the login, calling API to check if role didn't change.
 
 Architecture folder:
     - API - Call endpoint with Axios
