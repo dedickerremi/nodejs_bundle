@@ -1,30 +1,30 @@
 const Msg = require('../constants/response')
-const dataManagement = require('../API/userManagement')
+const userAPI = require('../API/userAPI')
 
 const userById = (req, res) => {
-  dataManagement.getClientById(req.params.slug)
+  userAPI.getClientById(req.params.slug)
   .then((result) => {
-      res.ok(result);
+    return res.ok(result);
   }).catch(err => {
-      res.internalError(err)
+    return res.internalError(err)
   })
 }
 
 const userByEmail = (req, res) => {
-  dataManagement.getClientByMail(req.params.slug)
+  userAPI.getClientByMail(req.params.slug)
   .then((result) => {
-    res.ok(result);
+    return res.ok(result);
   }).catch(err => {
-    res.internalError(err)
+    return res.internalError(err)
   })
 }
 
 const getUsers = (req, res) => {
-  dataManagement.getClients()
+  userAPI.getClients()
   .then((result) => {
-    res.ok(result);
+    return res.ok(result);
   }).catch(err => {
-    res.internalError(err)
+    return res.internalError(err)
   })
 }
 

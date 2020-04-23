@@ -2,7 +2,7 @@ const ping = (req, res) => {
     let test = {
       "message": "PONG"
     };
-    res.send(test);
+    return res.send(test);
 }
 
 module.exports = {

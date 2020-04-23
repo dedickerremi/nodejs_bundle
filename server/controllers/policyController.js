@@ -2,33 +2,40 @@ const Msg = require('../constants/response')
 const API = require('../API')
 const lodashFilter = require('../utils/lodashFunctions')
 const _ = require('lodash')
-const dataManagement = require('../API/policyManagement')
+const policiesAPI = require('../API/policyAPI')
+const userAPI = require('../API/userAPI')
 
 
 const getUserDataBypolicyId = (req, res) => {
-  dataManagement.getPolicyById(req.params.slug)
+  policiesAPI.getPolicyById(req.params.slug)
   .then((result) => {
-    res.ok(result);
+    userAPI.getClientById(result.clientId)
+    .then(result => {
+      return res.ok(result);
+    })
+    .catch(err => {
+      return res.ko(err);
+    })
   }).catch(err => {
-    res.internalError(err)
+    return res.internalError(err)
   })
 }
 
 const policiesByEmail = (req, res) => {
-  dataManagement.getPoliciesByEmail(req.params.slug)
+  policiesAPI.getPoliciesByEmail(req.params.slug)
   .then((result) => {
-    res.ok(result);
+    return res.ok(result);
   }).catch(err => {
-    res.internalError(err)
+    return res.internalError(err)
   })
 }
 
 const getPolicies = (req, res) => {
-  dataManagement.getPolicies()
+  policiesAPI.getPolicies()
   .then((result) => {
-    res.ok(result);
+    return res.ok(result);
   }).catch(err => {
-    res.internalError(err)
+    return res.internalError(err)
   })
 }
 

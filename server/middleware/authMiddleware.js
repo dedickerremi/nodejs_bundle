@@ -21,7 +21,6 @@ exports.auth = function(filter = null) {
                 next();
             });
         });
-
     };
 };
 

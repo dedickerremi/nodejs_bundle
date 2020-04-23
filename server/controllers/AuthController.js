@@ -18,20 +18,22 @@ const auth = (req, res) => {
 const login = (req, res) => {
     try {
         User.findOne({ email: req.body.email }, (err, user) => {
+            if (err) return res.internalError(err);
             user.comparePassword(req.body.password, (error, match) => {
-                    if(!match) {
-                        return res.badRequest({ message: "The password is invalid" });
-                    }
-                });
+                if (error) return res.internalError(error);
+                if(!match) {
+                    return res.badRequest({ message: "The password is invalid" });
+                }
                 var token = jwt.sign({ id: user._id }, config.JwtSecret, {
                     expiresIn: 86400 // expires in 24 hours
                 });
                 user.password = null;
                 user._id = null;
-                res.ok({user: user, token: token });
+                return res.ok({user: user, token: token });
             });
+        });
     } catch (error) {
-        res.internalError(error);
+        return res.internalError(error);
     }
 }
 
