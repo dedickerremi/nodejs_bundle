@@ -8,8 +8,6 @@ const morgan = require('morgan');
 const fs = require('fs');
 const config = require('./config');
 
-console.log(config.env);
-
 // setup the logger
 if (config.env === "dev") app.use(morgan('tiny'));
 else app.use(morgan('combined', { stream: fs.createWriteStream(path.join(__dirname+"/logs/", 'access.log'), { flags: 'a' }) }));
