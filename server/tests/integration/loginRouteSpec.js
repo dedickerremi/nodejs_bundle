@@ -1,13 +1,14 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http')
-
 const app = require('../../../server');
 const Msg = require('../../constants/response')
 const expect = chai.expect;
 const User = require('../../model/userModel')
+const connect = require('../../db/connect')
+// Configure chai
 chai.use(chaiHttp);
-
-const TAG = "Login";
+const should = chai.should();
+const TAG = "Login"
 
 let token;
 
@@ -36,18 +37,18 @@ const loginUser = (data, callback) => {
     .end((err, res) => {
         res.should.have.status(200);
         token = res.body.data.token;
-        console.log(token);
         callback();
     });
 }
 
 describe(TAG, () => {
-    
     before(function(done) {
-        User.deleteMany({}, createUser(done));
+        User.deleteMany({}, (err) => {});
+        createUser(done);
     });
 
     after(function (done) {
+        User.deleteMany({}, (err) => {});
         done();
     });
 

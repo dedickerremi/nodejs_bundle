@@ -4,18 +4,21 @@ const app = require('../../../server');
 const Msg = require('../../constants/response')
 const expect = chai.expect;
 const User = require('../../model/userModel')
-
+const connect = require('../../db/connect')
 // Configure chai
 chai.use(chaiHttp);
+const should = chai.should();
 const TAG = "Authentication"
 
 describe(TAG, () => {
     before(function(done) {
-        User.deleteMany({}, done);
+        User.deleteMany({}, (err) => {});
+        done();
     });
 
     after(function (done) {
-        User.deleteMany({}, done);
+        User.deleteMany({}, (err) => {});
+        done();
     });
 
     function checkValidatyBody(object) {
@@ -26,7 +29,7 @@ describe(TAG, () => {
     describe("Authentication", () => {
         it("should return missing params", (done) => {
             chai.request(app)
-                .post('/auth')
+                .post('/auth/')
                 .send({
                     email:"dedicker@gmail.com",
                     password:"e5SLOp9Pp"
