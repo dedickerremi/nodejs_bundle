@@ -29,7 +29,7 @@ const getClientById = (id) => {
 }
 
 const getClients = () => {
-    const model = [ "email", "id"]
+    const model = [ "email", "id", "role"];
     return new Promise((resolve, reject) => {
         API.fetchClientList()
         .then( data => {
